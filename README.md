@@ -1,2 +1,2 @@
-# imd_cookie_cutter
+# IMD Cookie Cutter
 A tool for removing atoms in IMD config files, just like a cookie cutter in higher dimensions
