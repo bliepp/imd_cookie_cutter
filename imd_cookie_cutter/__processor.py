@@ -10,12 +10,11 @@ from imd_cookie_cutter.__typecaster import estimate_type
 
 class Processor(abc.ABC):
     
-    def __init__(self, infile, outfile, nprocs=0, verbose=True):
+    def __init__(self, infile, outfile, nprocs=0):
         self.__in = infile
         self.__out = outfile
         self.__cols = None
         self.__nprocs = int(nprocs)
-        self.__verbose = verbose
         
         file_length = 0
         for i in open(self.__in.name, "r"):
