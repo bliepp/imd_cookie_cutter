@@ -8,8 +8,8 @@ import abc
 import imd_cookie_cutter.__helper as helper
 from imd_cookie_cutter.__typecaster import estimate_type
 
-class Processor(abc.ABC):
-    
+
+class Processor(abc.ABC): 
     def __init__(self, infile, outfile, nprocs=0):
         self.__in = infile
         self.__out = outfile

@@ -3,12 +3,14 @@
 #
 #
 
+
 def boolify(s):
     if s == 'True' or s == 'true':
             return True
     if s == 'False' or s == 'false':
             return False
     raise ValueError('Not Boolean Value!')
+
 
 def estimate_type(var):
     '''estimate_ts the str representation of the variables type'''
