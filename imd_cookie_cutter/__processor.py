@@ -24,7 +24,18 @@ class Processor(abc.ABC):
     @abc.abstractmethod
     def process(self, data):
         pass
+    
+    @property
+    def columns(self):
+        return self.__cols
 
+    @columns.setter
+    def columns(self, other):
+        if isinstance(other, (list, tuple)):
+            self.__cols = list(other)
+        else:
+            print("Setting attribute 'columns' failed. Argument is not an iterable.")
+    
     def __call__(self, nprocs=None, verbose=False):
         self.execute(nprocs, verbose)
 
@@ -62,9 +73,13 @@ class Processor(abc.ABC):
         # just copy comments
         if line.startswith("#"):
             self.__out.write(line)
-            if line.startswith("#C"):
+            if line.startswith("#C") and not self.__cols:
                 self.__cols = line[3:].strip().split()
             return helper.Continue
+        # check if columns exist. these are mandatory
+        if not self.__cols:
+            print("No keys set for data columns")
+            return helper.Break
         # check if line has to be copied
         data = self.__read_data(line)
         if not data:
