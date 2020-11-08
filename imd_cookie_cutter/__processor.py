@@ -52,7 +52,7 @@ class Processor(abc.ABC):
             executor = concurrent.futures.ProcessPoolExecutor(self.__nprocs)
             futures = [
                 executor.submit(executor, line) for line in self.__in
-            ]
+                ]
             concurrent.futures.wait(futures)
         else:
             for line in self.__in:
@@ -88,7 +88,7 @@ class Processor(abc.ABC):
             return helper.Continue
 
         line = " ".join(
-                str(i) for i in helper.order_dict(data, self.__cols)
+            str(i) for i in helper.order_dict(data, self.__cols)
             ) + "\n"
         self.__out.write(line)
         return helper.Success
