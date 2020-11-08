@@ -66,15 +66,6 @@ class Processor(abc.ABC):
                 self.__cols = line[3:].strip().split()
             return helper.Continue
         # check if line has to be copied
-        # deprecated, since process isnt an argument anymore
-        #if not process: # if process is False, None, etc.
-        #    return helper.Continue
-        #if callable(process): # if process is function, functor, etc.
-        #    data = self.__read_data(line)
-        #    if not data:
-        #        return helper.Continue
-        #    if not process(data):
-        #        return helper.Continue
         data = self.__read_data(line)
         if not data:
             return helper.Continue
