@@ -2,6 +2,7 @@
 
 import abc
 
+
 class ISelectorStrategy(abc.ABC):
     def __init__(self, position):
         self.pos = position

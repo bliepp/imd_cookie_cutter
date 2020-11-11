@@ -8,8 +8,8 @@ import abc
 import imd_cookie_cutter.__helper as helper
 from imd_cookie_cutter.__typecaster import estimate_type
 
-class Processor(abc.ABC):
-    
+
+class Processor(abc.ABC): 
     def __init__(self, infile, outfile, nprocs=0):
         self.__in = infile
         self.__out = outfile
@@ -55,7 +55,7 @@ class Processor(abc.ABC):
             executor = concurrent.futures.ProcessPoolExecutor(self.__nprocs)
             futures = [
                 executor.submit(executor, line) for line in self.__in
-            ]
+                ]
             concurrent.futures.wait(futures)
         else:
             for line in self.__in:
@@ -95,8 +95,8 @@ class Processor(abc.ABC):
             orderfunc = helper.order_dict
 
         line = " ".join(
-                str(i) for i in orderfunc(data, self.columns)
-            ) + "\n"
+            str(i) for i in orderfunc(data, self.columns)
+        ) + "\n"
         self.__out.write(line)
         return helper.Success
 

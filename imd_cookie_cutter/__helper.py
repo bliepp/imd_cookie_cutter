@@ -34,6 +34,7 @@ class Break(Statement):
 class Success(Statement):
     pass
 
+
 # Macros
 def order_dict(d, keys):
     if isinstance(keys, list):
