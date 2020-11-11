@@ -96,7 +96,7 @@ class Processor(abc.ABC):
 
         line = " ".join(
             str(i) for i in orderfunc(data, self.columns)
-        ) + "\n"
+            ) + "\n"
         self.__out.write(line)
         return helper.Success
 
