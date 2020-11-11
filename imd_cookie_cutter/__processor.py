@@ -15,10 +15,13 @@ class Processor(abc.ABC):
         self.__out = outfile
         self.__cols = None
         self.__nprocs = int(nprocs)
+
+        self.use_columns = True
         
         file_length = 0
-        for i in open(self.__in.name, "r"):
-            file_length += 1
+        with open(self.__in.name, "r") as f:
+            for i in f:
+                file_length += 1
         self.__pbar = helper.ProgressBar(100, file_length)
     
     @abc.abstractmethod
@@ -73,11 +76,11 @@ class Processor(abc.ABC):
         # just copy comments
         if line.startswith("#"):
             self.__out.write(line)
-            if line.startswith("#C") and not self.__cols:
-                self.__cols = line[3:].strip().split()
+            if line.startswith("#C") and not self.columns:
+                self.columns = line[3:].strip().split()
             return helper.Continue
         # check if columns exist. these are mandatory
-        if not self.__cols:
+        if not self.columns and self.use_columns:
             print("No keys set for data columns")
             return helper.Break
         # check if line has to be copied
@@ -87,8 +90,12 @@ class Processor(abc.ABC):
         if not self.process(data):
             return helper.Continue
 
+        orderfunc = lambda iterator: iterator # dont order, return itself
+        if isinstance(data, dict):
+            orderfunc = helper.order_dict
+
         line = " ".join(
-                str(i) for i in helper.order_dict(data, self.__cols)
+                str(i) for i in orderfunc(data, self.columns)
             ) + "\n"
         self.__out.write(line)
         return helper.Success
@@ -96,6 +103,6 @@ class Processor(abc.ABC):
     def __read_data(self, line):
         data = line.strip().split()
         data = [estimate_type(i) for i in data]
-        if len(self.__cols) == len(data):
-            return dict(zip(self.__cols, data))
+        if len(self.columns) == len(data):
+            return dict(zip(self.columns, data))
         else: return None # no incomplete lines eg. caused by walltimes
