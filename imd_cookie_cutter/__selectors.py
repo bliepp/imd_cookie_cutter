@@ -5,7 +5,7 @@ import abc
 
 class ISelectorStrategy(abc.ABC):
     def __init__(self, position):
-        self.pos = position
+        self.position = position
 
     @abc.abstractmethod
     def contains(self, point):
@@ -15,13 +15,13 @@ class ISelectorStrategy(abc.ABC):
 class SphereSelector(ISelectorStrategy):
     def __init__(self, position, radius):
         super().__init__(position)
-        self.rad = radius
+        self.radius = radius
 
     def contains(self, point, strict=False):
-        rel = (point - self.pos).length
+        rel = (point - self.position).length
         return (
-            ( rel < self.rad and strict ) 
-            or ( rel <= self.rad and not strict )
+            ( rel < self.radius and strict ) 
+            or ( rel <= self.radius and not strict )
             )
 
 
@@ -31,7 +31,7 @@ class BoxSelector(ISelectorStrategy):
         self.size = size
 
     def contains(self, point, strict=False):
-        rel = (point - self.pos).components
+        rel = (point - self.position).components
         maximum = self.size.components
         for i in range(len(self.size.components)):
             cond = (
