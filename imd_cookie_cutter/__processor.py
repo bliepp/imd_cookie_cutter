@@ -90,12 +90,12 @@ class Processor(abc.ABC):
         if not self.process(data):
             return helper.Continue
 
-        orderfunc = lambda iterator: iterator # dont order, return itself
+        orderfunc = lambda iterator, *args: iterator # dont order, return itself
         if isinstance(data, dict):
             orderfunc = helper.order_dict
 
         line = " ".join(
-            str(i) for i in orderfunc(data, self.columns)
+                str(i) for i in orderfunc(data, self.columns)
             ) + "\n"
         self.__out.write(line)
         return helper.Success
