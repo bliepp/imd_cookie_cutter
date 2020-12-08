@@ -6,7 +6,7 @@ import math
 class Vector(abc.ABC):
     def __init__(self, *components):
         self.__d = len(components)
-        self.__components = components
+        self.__components = list(components)
 
     @property
     def components(self):
