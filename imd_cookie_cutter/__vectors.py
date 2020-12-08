@@ -24,7 +24,7 @@ class Vector(abc.ABC):
     def __repr__(self):
        return "<{}, {}>".format(
                self.__class__.__name__,
-               self.__components
+               tuple(self.__components)
                )
  
     def __add__(self, other):
