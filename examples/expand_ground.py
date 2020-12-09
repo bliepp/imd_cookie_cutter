@@ -11,10 +11,8 @@
 
 import sys, os, argparse
 from contextlib import ExitStack
-import imd_cookie_cutter as imdcc
 
-# hidden (internal) feature
-from imd_cookie_cutter.__typecaster import estimate_type
+import imd_cookie_cutter as imdcc
 
 
 class ExpandProcessor(imdcc.Processor):
@@ -57,11 +55,11 @@ def main(args):
             if not line.startswith("#"):
                 atoms += 1
             if line.startswith("#X"):
-                box.components[0] = estimate_type(line.strip().split()[1])
+                box.components[0] = imdcc.estimate_type(line.strip().split()[1])
             if line.startswith("#Y"):
-                box.components[1] = estimate_type(line.strip().split()[2])
+                box.components[1] = imdcc.estimate_type(line.strip().split()[2])
             if line.startswith("#Z"):
-                box.components[2] = estimate_type(line.strip().split()[3])
+                box.components[2] = imdcc.estimate_type(line.strip().split()[3])
         print("{} atoms found".format(atoms))
 
         # copy, move a reindex atom configuration to new cells
@@ -95,8 +93,7 @@ def main(args):
             for i in f:
                 file_length += 1
 
-        # hidden (internal) feature
-        pbar = imdcc.__helper.ProgressBar(100, file_length)
+        pbar = imdcc.ProgressBar(100, file_length)
 
         skip_comment = False
         for line in infile:

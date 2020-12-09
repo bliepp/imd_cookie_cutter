@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="imd_cookie_cutter",
-    version="1.0.1",
+    version="1.0.2",
     author="bliepp",
     #author_email="author@example.com",
     description="A tool for removing atoms in IMD config files, just like a cookie cutter in higher dimensions.",

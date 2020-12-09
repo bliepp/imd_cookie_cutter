@@ -16,6 +16,10 @@ import imd_cookie_cutter as imdcc
 
 
 class BallOnFixedGroundProcessor(imdcc.Processor):
+    """
+    imdcc.Processor that removes atoms outside of a sphere or ground
+    and changes the atom types of the ground atoms to 1 (fixed)
+    """
     def __init__(self, infile, outfile, nprocs=0):
         # setup
         super().__init__(infile, outfile, nprocs)
