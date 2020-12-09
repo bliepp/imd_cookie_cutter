@@ -5,6 +5,9 @@
 # A ball of atoms of type 0 on a ground plane of atoms of type 1
 # In the simulation atoms of type 1 will be seen as fixed atoms
 #
+# atom type 0 -> normal atom
+# atom type 1 -> fixed atoms
+#
 
 import sys, argparse
 from contextlib import ExitStack
@@ -50,7 +53,7 @@ def main(args):
             print(
                 "Could not find input file '{}'".format(args.input),
                 file=sys.stderr
-            )
+                )
             sys.exit(1)
         
         outfile = stack.enter_context(open(args.output, "w"))
